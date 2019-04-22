@@ -1,0 +1,22 @@
+<div class='container'>
+  <h1 style="text-align: center">LAB 1</h1>
+  <div class="row">
+    <h2>List of Task Lists</h2>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let t of taskLists" (click)="getTasksOfTaskList(t)">
+        {{t.id}} - {{t.name}}
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+      <h2>List</h2>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let i of task" (click)="getTaskDetailed(i)">
+        {{i.id}}-{{i.name}}-{{i.status}}
+      </li>
+    </ul>
+  </div>
+  <!-- <div>
+  {{taskDetailed.id}}-{{taskDetailed.name}}-{{taskDetailed.created_at}}-{{taskDetailed.due_on}}-{{taskDetailed.status}}
+  </div> -->
+</div>
