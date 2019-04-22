@@ -52,7 +52,7 @@ def list_of_task_list(request, pk):
     except TaskList.DoesNotExist as e:
         return  JsonResponse({'error':str(e)},safe=False)
 
-
+@csrf_exempt
 def detailed_task(request, pk):
     try:
         task = Task.objects.get(id=pk)
