@@ -37,6 +37,7 @@ def detailed_task_list(request, pk):
             return JsonResponse(serializer.data)
         return JsonResponse({'error': 'bad request'})
     elif request.method == 'DELETE':
+        print("Aliw kozel")
         task_list.delete()
         return JsonResponse({})
     return JsonResponse({'error': 'bad request'})
@@ -57,7 +58,18 @@ def list_of_task_list(request, pk):
 def detailed_task(request, pk):
     try:
         task = Task.objects.get(id=pk)
-        serializer = TaskModelSerializer(task)
-        return JsonResponse(serializer.data)
     except Task.DoesNotExist as e:
         return JsonResponse({'error': str(e)}, safe=False)
+    if request.method == 'GET':
+        serializer = TaskModelSerializer(task)
+        return JsonResponse(serializer.data)
+    elif request.method == 'PUT':
+        data = json.loads(request.body)
+        serializer = TaskModelSerializer(instance=task,data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=200)
+        return JsonResponse(serializer.errors)
+    elif request.method == 'DELETE':
+        task.delete()
+        return JsonResponse({}, status=204)

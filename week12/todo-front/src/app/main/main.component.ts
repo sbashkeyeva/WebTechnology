@@ -15,6 +15,8 @@ export class MainComponent implements OnInit {
   public taskList="";
   public taskDetailed:ITaskDetailed;
   public name: any = ''
+  public showTasks=false
+  public showTask=false
   constructor(private provider:ProviderService) { 
   }
 
@@ -27,6 +29,8 @@ export class MainComponent implements OnInit {
   }
   getTasksOfTaskList(taskList:ITaskList){
     this.provider.getTasksOfTaskList(taskList.id).then(data=>{
+      this.showTasks=true
+      this.showTask=false
       this.task=data
     }
 
@@ -35,8 +39,9 @@ export class MainComponent implements OnInit {
 
   getTaskDetailed(task:ITask){
     this.provider.getTaskDetailed(task.id).then(data=>{
+      this.showTask=true
       this.taskDetailed=data
-      console.log(data)
+      
     }
 
     )
@@ -58,6 +63,22 @@ export class MainComponent implements OnInit {
       this.provider.getTaskLists().then(data=>{
         this.taskLists=data
       })
+    })
+  }
+  deleteTask(task:ITaskDetailed){
+    this.provider.deleteTask(task.id).then(res=>{
+      this.showTask=false
+      this.taskDetailed.id=0;
+      this.taskDetailed.name = '';
+      this.taskDetailed.created_at='';
+      this.taskDetailed.due_on='';
+      this.taskDetailed.status='';
+    })
+    
+  }
+  updateTask(task:ITaskDetailed){
+    this.provider.updateTask(task).then(res=>{
+      
     })
   }
 

@@ -40,12 +40,18 @@ class TaskSerializer(serializers.Serializer):
 
 class TaskModelSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(read_only=True)
+    name = serializers.CharField()
 
     class Meta:
         model = Task
-        fields = ('id', 'name')
-
+        fields = '__all__'
+        extra_kwargs={
+            'created_at':{'required':False},
+            'due_on': {'required': False},
+            'name': {'required': False},
+            'task_list': {'required': False},
+            'status': {'required': False}
+        }
 
 class TaskListModelSerializer(serializers.ModelSerializer):
     class Meta:

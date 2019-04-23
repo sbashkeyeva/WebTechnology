@@ -5,31 +5,45 @@
           <input type="text" [(ngModel)]="name" />
           <button (click)="createTaskList()">Create</button>
     </div>
-    <h2>List of Task Lists</h2>
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let taskList of taskLists" (click)="getTasksOfTaskList(t)">
-        {{taskList.id}} - {{taskList.name}}
-        <span><input type="text" [(ngModel)]="taskList.name" /></span>
-        <button type="button" class="btn btn-warning" (click)="updateTaskList(taskList)">Edit</button>
-        <button type="button" class="btn btn-danger" (click)="deleteTaskList(taskList)">Delete</button>
-      </li>
-    </ul>
+
+    
+      <h2>List of Task Lists</h2>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let taskList of taskLists" (click)="getTasksOfTaskList(taskList)">
+          {{taskList.id}} - {{taskList.name}}
+          <span><input type="text" [(ngModel)]="taskList.name" /></span>
+          <button type="button" class="btn btn-warning" (click)="updateTaskList(taskList)">Edit</button>
+          <button type="button" class="btn btn-danger" (click)="deleteTaskList(taskList)">Delete</button>
+        </li>
+      </ul>
+    
   </div>
-  <div class="row">
-      <h2>List</h2>
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let i of task" (click)="getTaskDetailed(i)">
-        {{i.id}}-{{i.name}}-{{i.status}}
-      </li>
-    </ul>
-  </div>
-  
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Name: {{taskDetailed.name}}</h5>
-      <p class="card-text">Status: {{taskDetailed.status}}</p>
-      <p class="card-text">Created at: {{taskDetailed.created_at}}</p>
-      <p class="card-text">Due on: {{taskDetailed.due_on}}</p>
+  <div *ngIf="showTasks"> 
+    <div class="row">
+        <h2>List</h2>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let i of task" (click)="getTaskDetailed(i)">
+          {{i.id}}-{{i.name}}-{{i.status}}
+        </li>
+      </ul>
     </div>
   </div>
+  <div *ngIf="showTask">
+      <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <input type="text" [(ngModel)]="taskDetailed.name"/>
+            <h5 class="card-title">Name: {{taskDetailed.name}}</h5>
+            <input type="text" [(ngModel)]="taskDetailed.status"/>
+            <p class="card-text">Status: {{taskDetailed.status}}</p>
+            
+
+            <p class="card-text">Created at: {{taskDetailed.created_at}}</p>
+            <p class="card-text">Due on: {{taskDetailed.due_on}}</p>
+            <button type="button" class="btn btn-danger" (click)="deleteTask(taskDetailed)">Delete</button>
+            <button type="button" class="btn btn-warning" (click)="updateTask(taskDetailed)">Edit</button>
+          </div>
+      
+        </div>
+  </div>
+ 
 </div>

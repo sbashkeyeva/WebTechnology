@@ -37,5 +37,14 @@ export class ProviderService extends MainService {
     return this.delet("http://127.0.0.1:8000/api/task_lists/" + id ,{
     })
   }
+  deleteTask(id:number):Promise<any>{
+    return this.delet('http://127.0.0.1:8000/api/tasks/'+id,{})
+  }
+  updateTask(task:ITaskDetailed){
+    return this.put('http://127.0.0.1:8000/api/tasks/'+task.id,{
+      name:task.name,
+      status:task.status
+    })
+  }
 
 }
