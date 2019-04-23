@@ -22,7 +22,11 @@ export class ProviderService extends MainService {
   getTaskDetailed(id:number): Promise<ITaskDetailed>{
       return this.get('http://127.0.0.1:8000/api/tasks/'+id,{})
   }
-  
+  createTaskList(name: any): Promise<ITaskList> {
+    return this.post('http://127.0.0.1:8000/api/task_lists/', {
+      name: name
+    });
+  }  
 
 //   getCategoryProducts(id: number): Promise<IProduct[]> {
 //     return this.get(`http://localhost:8000/shop/categories/${id}/products/`, {});

@@ -1,6 +1,11 @@
 <div class='container'>
   <h1 style="text-align: center">LAB 1</h1>
   <div class="row">
+
+  <div>
+  <input type="text" [(ngModel)]="name" />
+  <button (click)="createTaskList()">Create</button>
+  </div>
     <h2>List of Task Lists</h2>
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let t of taskLists" (click)="getTasksOfTaskList(t)">

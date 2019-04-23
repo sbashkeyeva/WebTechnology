@@ -12,6 +12,7 @@ import { ITaskDetailed } from '../shared/interfaces/taskDetailed';
 export class MainComponent implements OnInit {
   public taskLists:ITaskList[]=[];
   public task:ITask[]=[]
+  public name: any = ''
   public taskDetailed={
     
   }
@@ -40,6 +41,15 @@ export class MainComponent implements OnInit {
     }
 
     )
+  }
+
+  createTaskList() {
+    if (this.name !== '') {
+      this.provider.createTaskList(this.name).then(res => {
+        this.taskLists.push(res);
+        this.name = "";
+      })
+    }
   }
 
  

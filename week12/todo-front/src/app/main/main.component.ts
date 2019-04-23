@@ -11,10 +11,10 @@ import { ITaskDetailed } from '../shared/interfaces/taskDetailed';
 })
 export class MainComponent implements OnInit {
   public taskLists:ITaskList[]=[];
-  public task:ITask[]=[]
-  public taskDetailed={
-    
-  }
+  public task:ITask[]=[];
+  public taskList="";
+  public taskDetailed:ITaskDetailed;
+  public name: any = ''
   constructor(private provider:ProviderService) { 
   }
 
@@ -42,6 +42,23 @@ export class MainComponent implements OnInit {
     )
   }
 
- 
+  createTaskList() {
+    if (this.name !== '') {
+      this.provider.createTaskList(this.name).then(res => {
+        this.taskLists.push(res);
+        this.name = "";
+      })
+    }
+  }
+  updateTaskList(taskList:ITaskList){
+    this.provider.updateTaskList(taskList).then(res=>{})
+  }
+  deleteTaskList(taskList:ITaskList){
+    this.provider.deleteTaskList(taskList.id).then(res=>{
+      this.provider.getTaskLists().then(data=>{
+        this.taskLists=data
+      })
+    })
+  }
 
 }
