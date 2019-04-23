@@ -3,6 +3,7 @@ import {ITaskList} from '../shared/interfaces/taskList';
 import {ProviderService} from '../shared/services/provider.service';
 import { ITask } from '../shared/interfaces/task';
 import { ITaskDetailed } from '../shared/interfaces/taskDetailed';
+import {ITaskCreate} from '../shared/interfaces/taskCreate';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -12,7 +13,14 @@ import { ITaskDetailed } from '../shared/interfaces/taskDetailed';
 export class MainComponent implements OnInit {
   public taskLists:ITaskList[]=[];
   public task:ITask[]=[];
+  public taskCreate:ITaskCreate = {
+    name : "",
+    status: "",
+    created_at: "2014-04-03T04:33:16Z",
+    due_on: "2019-04-03T02:10:00Z"
+  };
   public taskList="";
+  public taskListId = 0;
   public taskDetailed:ITaskDetailed;
   public name: any = ''
   public showTasks=false
@@ -31,6 +39,8 @@ export class MainComponent implements OnInit {
     this.provider.getTasksOfTaskList(taskList.id).then(data=>{
       this.showTasks=true
       this.showTask=false
+      this.taskListId = taskList.id
+      console.log(this.taskListId);
       this.task=data
     }
 
@@ -79,6 +89,11 @@ export class MainComponent implements OnInit {
   updateTask(task:ITaskDetailed){
     this.provider.updateTask(task).then(res=>{
       
+    })
+  }
+  createTask(){
+    this.provider.createTask(this.taskCreate, this.taskListId).then(res=>{
+
     })
   }
 

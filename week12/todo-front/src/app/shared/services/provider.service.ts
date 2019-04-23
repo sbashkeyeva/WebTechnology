@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {ITaskList} from '../interfaces/taskList';
 import {ITask} from '../interfaces/task';
 import {ITaskDetailed} from '../interfaces/taskDetailed';
+import {ITaskCreate} from '../interfaces/taskCreate';
 @Injectable({
   providedIn: 'root'
 })
@@ -44,6 +45,16 @@ export class ProviderService extends MainService {
     return this.put('http://127.0.0.1:8000/api/tasks/'+task.id,{
       name:task.name,
       status:task.status
+    })
+  }
+  createTask(task:ITaskCreate,id:number){
+    return this.post('http://127.0.0.1:8000/api/task_lists/'+id+'/tasks',{
+      name:task.name,
+      status:task.status,
+      task_list:id,
+      created_at:task.created_at,
+      due_on:task.due_on
+
     })
   }
 

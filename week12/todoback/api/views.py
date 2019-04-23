@@ -48,10 +48,18 @@ def list_of_task_list(request, pk):
     try:
         task_list = TaskList.objects.get(id=pk)
         tasks = task_list.task_set.all()
-        serializer = TaskModelSerializer(tasks, many=True)
-        return JsonResponse(serializer.data, safe=False)
     except TaskList.DoesNotExist as e:
         return JsonResponse({'error': str(e)}, safe=False)
+    if request.method=="GET":
+        serializer = TaskModelSerializer(tasks, many=True)
+        return  JsonResponse(serializer.data, safe=False)
+    elif request.method=="POST":
+        body=json.loads(request.body)
+        serializer=TaskModelSerializer(data=body)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors)
 
 
 @csrf_exempt
