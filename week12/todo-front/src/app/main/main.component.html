@@ -46,18 +46,21 @@
         </div>
   </div>
  
-  <div style="margin: 20px auto 30px auto;" class="">
-      <h4 style="margin-bottom: 20px">Create Task</h4>
-      <p>Name of Task</p>
-      <input type="text" [(ngModel)]="taskCreate.name"/>
-      <p>Created At</p>
-      <input type="text" [(ngModel)]="taskCreate.created_at"/>
-      <p>Due On</p>
-      <input type="text" [(ngModel)]="taskCreate.due_on"/>
-      <p>Status</p>
-      <input type="text" [(ngModel)]="taskCreate.status"/>
-      <button type="button" class="btn btn-warning" (click)="createTask()">Create</button>
-   </div>
+  <div *ngIf="showCreateTask">
+      <div style="margin: 20px auto 30px auto;" class="">
+          <h4 style="margin-bottom: 20px">Create Task</h4>
+          <p>Name of Task</p>
+          <input type="text" [(ngModel)]="taskCreate.name"/>
+          <p>Created At</p>
+          <input type="text" [(ngModel)]="taskCreate.created_at"/>
+          <p>Due On</p>
+          <input type="text" [(ngModel)]="taskCreate.due_on"/>
+          <p>Status</p>
+          <input type="text" [(ngModel)]="taskCreate.status"/>
+       </div>
+       <button type="button" class="btn btn-warning" (click)="createTask()">Create</button>
+  </div>
+  
 </div>
 
 

@@ -25,6 +25,7 @@ export class MainComponent implements OnInit {
   public name: any = ''
   public showTasks=false
   public showTask=false
+  public showCreateTask=false
   constructor(private provider:ProviderService) { 
   }
 
@@ -40,6 +41,7 @@ export class MainComponent implements OnInit {
       this.showTasks=true
       this.showTask=false
       this.taskListId = taskList.id
+      this.showCreateTask=true
       console.log(this.taskListId);
       this.task=data
     }
